@@ -4,6 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "node src/index.js"
+    "start": "node public/index.js",
+    "build": "npx babel src --out-dir ./public"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
   }
 }
