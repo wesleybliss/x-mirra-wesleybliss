@@ -7,19 +7,65 @@
 <body>
 
 <p>@todo</p>
-<p id="data">NULL</p>
+
+<textarea id="data">NULL</textarea>
+
+<p id="preview">NULL</p>
 
 <script>
 
-function main() {
-    
+var elData = document.querySelector('#data')
+var elPreview = document.querySelector('#preview')
+
+var timer = null
+
+function debounce(func, wait, immediate) {
+    return function() {
+        var context = this
+        var args = arguments
+        var later = function() {
+            timer = null
+            if (!immediate) func.apply(context, args)
+        }
+        var callNow = immediate && !timer
+        clearTimeout(timer)
+        timer = setTimeout(later, wait)
+        if (callNow) func.apply(context, args)
+    }
+}
+
+function onTyping(e) {
+    console.log(e)
+    elPreview.textContent = elData.value
+}
+
+function readData() {
     fetch('/api/read.js')
         .then(function(response) {
             return response.text()
         })
         .then(function(data) {
-            document.querySelector('#data').textContent = data
+            elData.value = data
         })
+}
+
+function writeData() {
+    fetch('/api/write.js', {
+        method: 'post',
+        headers: {
+            'Accept': 'text/plain',
+            'Content-Type': 'text/plain'
+        },
+        body: elData.value
+    }).then(res => res.toString())
+      .then(res => console.log(res))
+}
+
+function main() {
+    
+    elData.onkeyup = debounce(onTyping, 600, false)
+    
+    
     
 }
 
