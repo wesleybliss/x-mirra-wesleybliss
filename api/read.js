@@ -5,7 +5,7 @@ const publicFileUri = path.join(__dirname, 'public.txt')
 
 module.exports = (req, res) => {
     
-    res.set('Content-Type', 'text/plain')
+    //res.set('Content-Type', 'text/plain')
     
     try {
         fs.readFile(publicFileUri, 'utf-8', (err, data) => {

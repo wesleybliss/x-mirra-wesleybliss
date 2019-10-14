@@ -15,7 +15,7 @@ const updateTimer = () => {
 
 module.exports = (req, res) => {
     
-    res.set('Content-Type', 'text/plain')
+    //res.set('Content-Type', 'text/plain')
     
     try {
         
